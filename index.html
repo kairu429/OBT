@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>おばあちゃん牧場</title>
+
+  <!-- Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    :root{
+      --header-h:88px;
+      --card-height: calc(100vh - var(--header-h) - 48px);
+    }
+    html,body{height:100%}
+    body {
+      font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: #ffffff;
+      color: #0f172a;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      cursor: none;
+    }
+
+    /* custom cursor */
+    .cursor-dot {
+      position: fixed;
+      pointer-events: none;
+      z-index: 99999;
+      left: 0; top: 0;
+      width: 18px; height: 18px;
+      border-radius: 999px;
+      background: rgba(34,197,94,0.95);
+      transform: translate(-50%, -50%) scale(1);
+      transition: transform 160ms cubic-bezier(.2,.9,.3,1), width 160ms, height 160ms, background 160ms, opacity 160ms;
+      box-shadow: 0 6px 20px rgba(16,24,40,0.12);
+      opacity: 0.95;
+    }
+    .cursor-dot.big { transform: translate(-50%, -50%) scale(1.8); width: 38px; height: 38px; background: rgba(16,185,129,0.95); }
+    @media (hover: none) { body { cursor:auto; } .cursor-dot { display:none; } }
+
+    @keyframes fadeInUp { from {opacity:0; transform: translateY(20px)} to {opacity:1; transform: translateY(0)} }
+    .fadeInUp { animation: fadeInUp 700ms ease both; }
+
+    .card-frame {
+      border: 3px solid #16a34a;
+      border-radius: 20px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.98), #fff);
+      box-shadow: 0 20px 50px rgba(2,6,23,0.06);
+      transition: transform .28s cubic-bezier(.2,.9,.3,1), box-shadow .28s;
+      overflow: hidden;
+    }
+    .card-frame:hover { transform: translateY(-6px) scale(1.03); box-shadow: 0 30px 60px rgba(16,24,40,0.12); }
+
+    .check-item { display:flex; gap:12px; align-items:flex-start; }
+    .check-badge { min-width:40px; min-height:40px; border-radius:8px; background:#10b981; color:white; display:inline-flex; align-items:center; justify-content:center; font-weight:700; box-shadow: 0 6px 16px rgba(16,185,129,0.14); flex-shrink:0; }
+
+    .btn-cta { display:inline-flex; align-items:center; justify-content:center; gap:12px; padding:18px 30px; border-radius:14px; font-weight:700; box-shadow: 0 14px 40px rgba(2,6,23,0.08); transition: transform .12s ease, box-shadow .12s ease, background .12s; }
+    .btn-cta:hover { transform: translateY(-4px); }
+
+    @media (max-width: 900px) {
+      :root { --card-height: auto; }
+      body { font-size: 15px; }
+      .btn-cta { padding:14px 20px; }
+    }
+
+    header { height: var(--header-h); backdrop-filter: blur(4px); }
+  </style>
+</head>
+<body>
+  <div id="cursor" class="cursor-dot" aria-hidden></div>
+
+  <header class="fixed top-0 left-0 right-0 z-40 bg-white/80 border-b border-gray-100 flex items-center justify-between px-8">
+    <div class="flex items-center gap-4">
+      <div class="rounded-lg bg-green-50 p-3">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden>
+          <path d="M3 13c0-4 4-9 9-9s9 5 9 9" stroke="#059669" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="6.5" cy="16.5" r="2.5" fill="#10B981" />
+        </svg>
+      </div>
+      <div>
+        <div class="text-2xl font-extrabold">おばあちゃん牧場</div>
+        <div class="text-sm text-gray-500">日本の旬を、丁寧に。</div>
+      </div>
+    </div>
+
+    <nav class="flex items-center gap-6 text-base">
+      <a class="text-gray-700 hover:text-green-600" href="#intro">紹介</a>
+      <a class="text-gray-700 hover:text-green-600" href="#tickets">チケット</a>
+      <a class="text-gray-700 hover:text-green-600" href="#pass">年パス</a>
+      <a class="text-gray-700 hover:text-green-600" href="#sub">サブスク</a>
+      <a class="text-gray-700 hover:text-green-600" href="#contact">お問い合わせ</a>
+    </nav>
+  </header>
+
+  <main class="pt-[calc(var(--header-h)+12px)]">
+    <!-- HERO -->
+    <section id="intro" class="min-h-screen flex items-center justify-center px-8 fadeInUp">
+      <div class="max-w-6xl w-full grid md:grid-cols-2 gap-12 items-center">
+        <div class="space-y-8">
+          <h1 class="text-7xl md:text-9xl font-extrabold leading-tight">でっかく体験、すっごく美味しい。</h1>
+          <p class="text-2xl text-gray-700 max-w-3xl">おばあちゃんの知恵で育てた旬の味。体験・直売・定期便・イベント、家族で楽しめる牧場です。</p>
+          <div class="flex gap-4">
+            <a href="#tickets" class="btn-cta bg-green-600 text-white">チケットを見る</a>
+            <a href="#sub" class="btn-cta bg-white border border-gray-200">サブスクを見る</a>
+          </div>
+        </div>
+
+        <div class="bg-white card-frame p-8 shadow-lg">
+          <div class="text-lg font-semibold text-gray-600 mb-4">今日できること（ピックアップ）</div>
+          <div class="space-y-6">
+            <div class="check-item">
+              <div class="check-badge">✓</div>
+              <div><strong class="font-semibold">ふれあい体験</strong><div class="text-sm text-gray-600">動物と触れ合って写真も撮れる。子ども向けの安全対策あり。</div></div>
+            </div>
+            <div class="check-item">
+              <div class="check-badge">✓</div>
+              <div><strong class="font-semibold">収穫体験</strong><div class="text-sm text-gray-600">旬の野菜や果物を自分で収穫して持ち帰り。</div></div>
+            </div>
+            <div class="check-item">
+              <div class="check-badge">✓</div>
+              <div><strong class="font-semibold">直売</strong><div class="text-sm text-gray-600">採れたての野菜・お米・加工品を販売。</div></div>
+            </div>
+            <div class="check-item">
+              <div class="check-badge">✓</div>
+              <div><strong class="font-semibold">ワークショップ</strong><div class="text-sm text-gray-600">味噌づくり・漬物づくりなどの体験クラス。</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TICKETS (vertical cards) -->
+    <section id="tickets" class="min-h-screen px-8 py-16 fadeInUp">
+      <div class="max-w-7xl mx-auto">
+        <h2 class="text-5xl font-extrabold mb-8 text-center">🎟 チケット</h2>
+        <p class="text-center text-lg text-gray-600 mb-10">用途に合わせて選べるチケット。。</p>
+
+        <div class="grid md:grid-cols-3 gap-8">
+          <!-- 日帰り -->
+          <article class="card-frame p-8 flex flex-col justify-between" style="height: calc(100vh - var(--header-h) - 160px);">
+            <div>
+              <div class="text-xl text-gray-500 mb-2">日帰り</div>
+              <h3 class="text-3xl font-bold mb-4">日帰り入場券</h3>
+              <p class="text-lg text-gray-700 mb-6">牧場をゆっくり一日楽しめるスタンダードな入場券。</p>
+
+              <div class="space-y-4">
+                <div class="check-item"><div class="check-badge">✓</div><div>牧場内自由見学</div></div>
+                <div class="check-item"><div class="check-badge">✓</div><div>動物とのふれあい体験</div></div>
+                <div class="check-item"><div class="check-badge">✓</div><div>季節の野菜収穫体験</div></div>
+                <div class="check-item"><div class="check-badge">✓</div><div>おばあちゃんの手作りおやつ付き</div></div>
+              </div>
+            </div>
+
+            <div class="mt-8">
+              <div class="flex items-center justify-between mb-4">
+                <div class="text-3xl font-extrabold text-green-600">¥1,500</div>
+                <div class="text-sm text-gray-500">大人1名</div>
+              </div>
+              <button onclick="rickRoll()" class="btn-cta w-full bg-green-600 text-white">お支払い</button>
+            </div>
+          </article>
+
+          <!-- 体験 -->
+          <article class="card-frame p-8 flex flex-col justify-between" style="height: calc(100vh - var(--header-h) - 160px);">
+            <div>
+              <div class="text-xl text-gray-500 mb-2">体験</div>
+              <h3 class="text-3xl font-bold mb-4">体験チケット</h3>
+              <p class="text-lg text-gray-700 mb-6">収穫やクラフトなどの体験プログラムを楽しむチケット。</p>
+
+              <div class="space-y-4">
+                <div class="check-item"><div class="check-badge">✓</div><div>牧場見学・収穫体験</div></div>
+                <div class="check-item"><div class="check-badge">✓</div><div>おばあちゃん直伝料理教室</div></div>
+                <div class="check-item"><div class="check-badge">✓</div><div>手作りジャム・漬物体験</div></div>
+                <div class="check-item"><div class="check-badge">✓</div><div>農産物お土産セット付き</div></div>
+                <div class="check-item"><div class="check-badge">✓</div><div>記念写真サービス</div></div>
+              </div>
+            </div>
+
+            <div class="mt-8">
+              <div class="flex items-center justify-between mb-4">
+                <div class="text-3xl font-extrabold text-green-600">¥2,200〜</div>
+                <div class="text-sm text-gray-500">プログラムにより変動</div>
+              </div>
+              <button onclick="rickRoll()" class="btn-cta w-full bg-green-600 text-white">お支払い</button>
+            </div>
+          </article>
+
+          <!-- 季節イベント -->
+          <article class="card-frame p-8 flex flex-col justify-between" style="height: calc(100vh - var(--header-h) - 160px);">
+            <div>
+              <div class="text-xl text-gray-500 mb-2">イベント</div>
+              <h3 class="text-3xl font-bold mb-4">季節イベント券</h3>
+              <p class="text-lg text-gray-700 mb-6">収穫祭や季節限定の催しに参加できるチケット。</p>
+
+              <div class="space-y-4">
+                <div class="check-item"><div class="check-badge">✓</div><div>限定イベント参加</div></div>
+                <div class="check-item"><div class="check-badge">✓</div><div>限定グッズ</div></div>
+                <div class="check-item"><div class="check-badge">✓</div><div>写真スポット優先</div></div>
+              </div>
+            </div>
+
+            <div class="mt-8">
+              <div class="flex items-center justify-between mb-4">
+                <div class="text-3xl font-extrabold text-green-600">¥2,800〜</div>
+                <div class="text-sm text-gray-500">イベントにより変動</div>
+              </div>
+              <button onclick="rickRoll()" class="btn-cta w-full bg-green-600 text-white">お支払い）</button>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- YEAR PASS -->
+    <section id="pass" class="min-h-screen px-8 py-16 fadeInUp">
+      <div class="max-w-7xl mx-auto">
+        <h2 class="text-6xl font-extrabold mb-6 text-center">💳 年間パスポート</h2>
+        <p class="text-center text-lg text-gray-600 mb-10">頻繁に来るならお得。各種特典を用意しています。</p>
+
+        <div class="grid md:grid-cols-3 gap-8">
+          <!-- ゴールド -->
+          <article class="card-frame p-10 flex flex-col justify-between" style="height: var(--card-height);">
+            <div>
+              <div class="text-sm text-gray-500 mb-2">最上位</div>
+              <h3 class="text-4xl font-bold mb-4">ゴールドパス</h3>
+              <p class="text-lg text-gray-700 mb-6">1年間いつでも入場可能。豪華な特典付きプラン。</p>
+
+              <div class="space-y-4">
+                <div class="check-item"><div class="check-badge">✓</div><div>年間無制限入場</div></div>
+                <div class="check-item"><div class="check-badge">✓</div><div>季節のイベント参加無料</div></div>
+                <div class="check-item"><div class="check-badge">✓</div><div>農産物購入10%割引</div></div>
+                <div class="check-item"><div class="check-badge">✓</div><div>特別体験プログラム優先予約</div></div>
+                <div class="check-item"><div class="check-badge">✓</div><div>年4回の会員限定収穫祭参加</div></div>
+              </div>
+            </div>
+
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <div class="text-4xl font-extrabold text-green-600">¥6,800 / 年</div>
+                <div class="text-sm text-gray-500">個人プラン</div>
+              </div>
+              <div class="flex gap-4">
+                <button onclick="rickRoll()" class="btn-cta bg-yellow-500 text-white w-full">お支払い</button>
+                <button class="btn-cta bg-white border border-gray-200 w-full" onclick="alert('利用規約ダイアログ (デモ)')">利用規約</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- シルバー -->
+          <article class="card-frame p-10 flex flex-col justify-between" style="height: var(--card-height);">
+            <div>
+              <div class="text-sm text-gray-500 mb-2">ミドル</div>
+              <h3 class="text-4xl font-bold mb-4">シルバーパス</h3>
+              <p class="text-lg text-gray-700 mb-6">半年間のアクセス。気軽に何度も来たい方向け。</p>
+
+              <div class="space-y-4">
+                <div class="check-item"><div class="check-badge">✓</div><div>半年間入場フリー</div></div>
+                <div class="check-item"><div class="check-badge">✓</div><div>季節イベント先行枠</div></div>
+                <div class="check-item"><div class="check-badge">✓</div><div>限定プレゼント</div></div>
+              </div>
+            </div>
+
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <div class="text-4xl font-extrabold text-green-600">¥3,800 / 半年</div>
+                <div class="text-sm text-gray-500">個人プラン</div>
+              </div>
+              <div class="flex gap-4">
+                <button onclick="rickRoll()" class="btn-cta bg-yellow-500 text-white w-full">お支払い</button>
+                <button class="btn-cta bg-white border border-gray-200 w-full" onclick="alert('詳細情報 (デモ)')">詳しく</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- ブロンズ -->
+          <article class="card-frame p-10 flex flex-col justify-between" style="height: var(--card-height);">
+            <div>
+              <div class="text-sm text-gray-500 mb-2">お試し</div>
+              <h3 class="text-4xl font-bold mb-4">ブロンズパス</h3>
+              <p class="text-lg text-gray-700 mb-6">短期間でお試ししたい方向けの3ヶ月プラン。</p>
+
+              <div class="space-y-4">
+                <div class="check-item"><div class="check-badge">✓</div><div>3ヶ月入場フリー</div></div>
+                <div class="check-item"><div class="check-badge">✓</div><div>一部イベント参加可</div></div>
+              </div>
+            </div>
+
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <div class="text-4xl font-extrabold text-green-600">¥1,900 / 3ヶ月</div>
+                <div class="text-sm text-gray-500">個人プラン</div>
+              </div>
+              <div class="flex gap-4">
+                <button onclick="rickRoll()" class="btn-cta bg-yellow-500 text-white w-full">お支払い）</button>
+                <button class="btn-cta bg-white border border-gray-200 w-full" onclick="alert('お試し条件 (デモ)')">条件を見る</button>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- SUBSCRIPTIONS -->
+    <section id="sub" class="min-h-screen px-8 py-16 fadeInUp">
+      <div class="max-w-7xl mx-auto">
+        <h2 class="text-5xl font-extrabold mb-8 text-center">📦 サブスクリプション</h2>
+        <p class="text-center text-lg text-gray-600 mb-10">定期配送プラン — 食卓を豊かにする安全・安心の直送サービス</p>
+
+        <div class="grid md:grid-cols-3 gap-8">
+          <article class="card-frame p-8 flex flex-col justify-between" style="height: calc(100vh - var(--header-h) - 220px);">
+            <div>
+              <h3 class="text-2xl font-bold mb-4">季節の野菜ボックス</h3>
+              <p class="text-lg text-gray-700 mb-6">5〜8品の旬野菜をプロがセレクトしてお届け。</p>
+              <div class="space-y-3">
+                <div class="check-item"><div class="check-badge">✓</div><div>簡単レシピ付き</div></div>
+                <div class="check-item"><div class="check-badge">✓</div><div>配達日時指定可</div></div>
+              </div>
+            </div>
+            <div><button onclick="rickRoll()" class="btn-cta w-full bg-green-600 text-white">申し込む（</button></div>
+          </article>
+
+          <article class="card-frame p-8 flex flex-col justify-between" style="height: calc(100vh - var(--header-h) - 220px);">
+            <div>
+              <h3 class="text-2xl font-bold mb-4">お米定期便</h3>
+              <p class="text-lg text-gray-700 mb-6">精米・品種選択可。風味そのままにお届け。</p>
+              <div class="space-y-3">
+                <div class="check-item"><div class="check-badge">✓</div><div>精米日表示</div></div>
+                <div class="check-item"><div class="check-badge">✓</div><div>ギフトラッピング可</div></div>
+              </div>
+            </div>
+            <div><button onclick="rickRoll()" class="btn-cta w-full bg-green-600 text-white">申し込む</button></div>
+          </article>
+
+          <article class="card-frame p-8 flex flex-col justify-between" style="height: calc(100vh - var(--header-h) - 220px);">
+            <div>
+              <h3 class="text-2xl font-bold mb-4">農産物おまかせ</h3>
+              <p class="text-lg text-gray-700 mb-6">野菜・果物・加工品をバランスよくお届け。</p>
+              <div class="space-y-3">
+                <div class="check-item"><div class="check-badge">✓</div><div>月替わり特典</div></div>
+                <div class="check-item"><div class="check-badge">✓</div><div>おまかせセレクト</div></div>
+              </div>
+            </div>
+            <div><button onclick="rickRoll()" class="btn-cta w-full bg-green-600 text-white">申し込む</button></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- STAFF -->
+    <section id="staff" class="min-h-screen px-8 py-16 fadeInUp">
+      <div class="max-w-4xl mx-auto text-center">
+        <h2 class="text-5xl font-extrabold mb-6">👩‍🌾 働く人 — もね</h2>
+        <p class="text-lg text-gray-600 mb-8">体験プログラム担当。静かに丁寧で、頼れる存在です。</p>
+        <div class="card-frame p-10 mx-auto max-w-md">
+          <div class="text-xl font-semibold mb-3">役割</div>
+          <div class="text-lg">体験運営・直売管理・訪問者対応</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="min-h-screen px-8 py-16 fadeInUp">
+      <div class="max-w-3xl mx-auto">
+        <h2 class="text-5xl font-extrabold mb-6 text-center">✉️ お問い合わせ</h2>
+        <p class="text-center text-gray-600 mb-8">メール不要。フォームに入力で送信できます（送信は Firebase に POST します）。</p>
+
+        <form id="contactForm" class="bg-white card-frame p-8" onsubmit="return false;">
+          <label class="block text-lg font-semibold mb-2">お名前（必須）</label>
+          <input id="name" class="w-full mb-4 p-4 border rounded-xl text-lg" required />
+
+          <label class="block text-lg font-semibold mb-2">メール（任意）</label>
+          <input id="email" class="w-full mb-4 p-4 border rounded-xl text-lg" placeholder="未入力可" />
+
+          <label class="block text-lg font-semibold mb-2">本文（必須）</label>
+          <textarea id="message" class="w-full mb-6 p-4 border rounded-xl text-lg h-44" required></textarea>
+
+          <div class="flex gap-4">
+            <button id="sendBtn" class="btn-cta bg-green-600 text-white">送信</button>
+            <button id="resetBtn" class="btn-cta bg-white border">リセット</button>
+          </div>
+
+          <p class="text-sm text-gray-400 mt-4">送信先: retrochat-74f95-default-rtdb (Realtime Database) — Firebase ルールが必要です。</p>
+        </form>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="py-10 text-center text-sm text-gray-500">© <span id="year"></span> おばあちゃん牧場</footer>
+  </main>
+
+  <script>
+    // set year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // cursor logic
+    (function(){
+      const cursor = document.getElementById('cursor');
+      let lastX = 0, lastY = 0;
+      window.addEventListener('mousemove', (e) => {
+        lastX = e.clientX; lastY = e.clientY;
+        cursor.style.left = lastX + 'px';
+        cursor.style.top = lastY + 'px';
+      });
+      const hoverTargets = ['.card-frame', '.btn-cta', 'button', 'a'];
+      function setBig(b){
+        if(b) cursor.classList.add('big'); else cursor.classList.remove('big');
+      }
+      hoverTargets.forEach(sel => {
+        document.addEventListener('mouseover', (e) => {
+          if (e.target.closest(sel)) setBig(true);
+        });
+        document.addEventListener('mouseout', (e) => {
+          if (e.target.closest(sel) === null) setBig(false);
+        });
+      });
+    })();
+
+    // Rick Roll (dummy payment) - opens in new tab, no data saved
+    function rickRoll(){
+      window.open('https://www.youtube.com/watch?v=dQw4w9WgXcQ', '_blank', 'noopener');
+    }
+    window.rickRoll = rickRoll;
+
+    // contact form -> Firebase Realtime DB
+    (function(){
+      const sendBtn = document.getElementById('sendBtn');
+      const resetBtn = document.getElementById('resetBtn');
+      const nameInput = document.getElementById('name');
+      const emailInput = document.getElementById('email');
+      const messageInput = document.getElementById('message');
+
+      function toast(msg, isError=false){
+        const t = document.createElement('div');
+        t.textContent = msg;
+        t.className = 'fixed bottom-8 right-8 bg-white p-4 rounded-xl shadow-lg';
+        t.style.border = isError ? '2px solid #ef4444' : '2px solid #10b981';
+        document.body.appendChild(t);
+        setTimeout(()=> t.remove(), 3500);
+      }
+
+      sendBtn.addEventListener('click', async (e) => {
+        e.preventDefault();
+        const name = nameInput.value.trim();
+        const message = messageInput.value.trim();
+        if(!name || !message){ toast('お名前と本文は必須です', true); return; }
+        sendBtn.disabled = true; sendBtn.textContent = '送信中…';
+        try {
+          const payload = { name, email: emailInput.value.trim(), message, createdAt: new Date().toISOString() };
+          const res = await fetch('https://retrochat-74f95-default-rtdb.firebaseio.com/contacts.json', {
+            method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload)
+          });
+          if(!res.ok) throw new Error('HTTP ' + res.status);
+          toast('送信しました — 担当よりご連絡します');
+          nameInput.value = ''; emailInput.value = ''; messageInput.value = '';
+        } catch(err){
+          console.error(err);
+          toast('送信に失敗しました（設定を確認）', true);
+        } finally {
+          sendBtn.disabled = false; sendBtn.textContent = '送信';
+        }
+      });
+
+      resetBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        nameInput.value=''; emailInput.value=''; messageInput.value='';
+        toast('フォームをリセットしました');
+      });
+    })();
+  </script>
+</body>
+</html>
